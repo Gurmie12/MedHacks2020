@@ -1,0 +1,27 @@
+body > #root > div {
+  height: 100%;
+  background-color: #000000;
+  background-image: linear-gradient(315deg, #000000 0%, #414141 74%);
+}
+
+.App{
+  height: 100%;
+}
+
+#title{
+  color: white;
+  font-size: 100px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.navbar.scrolled{
+  background: linear-gradient(90deg, #414141 0%, #000000 50%, #414141 100%);
+}
+
+.data-left{
+  background: linear-gradient(90deg, white 0%, #414141 80%);
+}
+
+.data-right{
+  background: linear-gradient(90deg, #414141 20%, white 100%);
+}
