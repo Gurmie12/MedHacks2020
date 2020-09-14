@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',    
     'corsheaders.middleware.CorsMiddleware'
 ]
 
@@ -126,4 +126,9 @@ STATIC_URL = '/static/'
 CORS_ORIGIN_ALLOW_ALL = True
 
 ALLOWED_HOSTS = ['*']
+
+if DEBUG:
+    INSTALLED_APPS += ('corsheaders', )
+
+CORS_ORIGIN_ALLOW_ALL = DEBUG
 

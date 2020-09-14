@@ -3,31 +3,32 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import UserSerializer
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
-from rest_framework.decorators import api_view
+from django.contrib.auth import authenticate, login
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny 
 import json
 
 # Create your views here.
 @api_view(['POST'])
-def login(request):
+@permission_classes([AllowAny])
+def login_user(request):        
     data = json.loads(request.body)
-    serializer = UserSerializer(data=data)
-    if serializer.is_valid():
-        user = authenticate(username=data['username'], password=data['password'])
-        if user is not None:
-            login(request, user)
-            return Response({'success': 'User logged in'})
-        else:
-            return Response({'error': 'Wrong email or password, please try again!'})
+    user = authenticate(request, username=data['username'], password=data['password'])
+    if user is not None:
+        login(request, user)
+        return Response({'success': 'User logged in'})
     else:
-        return Response({'error': 'Bad Request'})
+        return Response({'error': 'Wrong email or password, please try again!'})
+    
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def logout(request):
     logout(request)
     return Response({'success': 'User succesfully logged out'})
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def signup(request):
     data = json.loads(request.body)
     serializer = UserSerializer(data=data)
