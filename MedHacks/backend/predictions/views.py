@@ -22,4 +22,13 @@ def predict(request):
     with open('testing_image.png', 'wb') as outfile:
         outfile.write(img)
     res = eval_xray_model()
+    possibilites = res.keys()
+    total = 0
+    for p in possibilites:
+        if p != "Image Index":
+            total += res[p][0] * 100
+    for p in possibilites:
+        if p != "Image Index":
+            scale = 100/total
+            res[p][0] = round(res[p][0] * 100,2) * scale
     return Response({'result': res})

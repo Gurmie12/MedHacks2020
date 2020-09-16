@@ -8,8 +8,7 @@ import sklearn
 import sklearn.metrics as sklm
 from torch.autograd import Variable
 import numpy as np
-import ctypes
-ctypes.cdll.LoadLibrary('caffe2_nvrtc.dll')
+
 
 
 def make_pred_multilabel(data_transforms, model, PATH_TO_IMAGES):
@@ -39,6 +38,10 @@ def make_pred_multilabel(data_transforms, model, PATH_TO_IMAGES):
     dataloader = torch.utils.data.DataLoader(
         dataset, BATCH_SIZE, shuffle=False, num_workers=8)
     size = len(dataset)
+
+    pred_df = pd.DataFrame(columns=["Image Index"])
+    true_df = pd.DataFrame(columns=["Image Index"])
+
 
     # iterate over dataloader
     for i, data in enumerate(dataloader):

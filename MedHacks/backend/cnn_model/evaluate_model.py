@@ -3,7 +3,7 @@ from .eval_model import make_pred_multilabel
 from torchvision import transforms
 
 def eval_xray_model():
-    model = torch.load('model_v2.pt')
+    model = torch.load('model_v2.pt', map_location=torch.device('cpu'))
     mean = [0.485, 0.456, 0.406]
     std = [0.229, 0.224, 0.225]
     data_transforms = {

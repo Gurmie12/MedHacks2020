@@ -40,19 +40,10 @@ function TryNow(){
     };
 
     const runPrediction = () =>{
-        console.log(xrayInput)
-    };
-
-    const handleFileInput = (e) =>{
-        if(e.target.files){
-            let reader = new FileReader()
-            let file = reader.readAsDataURL(e.target.files[0])
-            reader.onloadend = (e) =>{
-                setXrayInput(reader.result);
-                fetch('http://localhost:8000/predictions/predict/', {
+        fetch('http://localhost:8000/predictions/predict/', {
                     method: 'POST',
                     body: JSON.stringify({
-                        image: reader.result
+                        image: xrayInput
                     }),
                     headers: {
                         'content-type': 'application/json'
@@ -69,9 +60,17 @@ function TryNow(){
                 .catch(err =>{
                     throw err;
                 });
+    };
+
+    const handleFileInput = (e) =>{
+        if(e.target.files){
+            let reader = new FileReader()
+            let file = reader.readAsDataURL(e.target.files[0])
+            reader.onloadend = (e) =>{
+                setXrayInput(reader.result);
+            }
         }
-    }
-    }
+    };
     return(
         <div className="App">
                 <div className="row">

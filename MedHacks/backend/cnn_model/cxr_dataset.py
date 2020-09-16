@@ -3,9 +3,6 @@ import numpy as np
 from torch.utils.data import Dataset
 import os
 from PIL import Image
-import ctypes
-ctypes.cdll.LoadLibrary('caffe2_nvrtc.dll')
-
 
 class CXRDataset(Dataset):
 
